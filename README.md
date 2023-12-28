@@ -27,3 +27,54 @@ One of the process will have the same pid as our daemon pid.
 Click the process and click the x to kill the process.
 ### CLI
 ```kill <daemon pid>```
+
+
+
+
+# PyDaemonize
+
+PyDaemonize is a Python library designed to simplify the process of creating daemon processes in Python. It provides an easy-to-use interface for transforming standard Python scripts into background-running daemons.
+
+## Features
+
+- Easy creation of daemon processes.
+- Customizable daemon behavior.
+- Robust logging and error handling.
+- PID file management for daemon process tracking.
+
+## Installation
+
+You can install PyDaemonize using pip:
+
+```bash
+pip install pydaemonize
+```
+
+## Usage
+```
+from pydaemonize import create_daemon
+
+def my_daemon_task():
+    # Your daemon code goes here
+    pass
+
+if __name__ == "__main__":
+    create_daemon(my_daemon_task)
+
+```
+
+## Advanced Usage
+```
+from pydaemonize import create_daemon
+
+def my_custom_daemon():
+    # Custom daemon code
+    pass
+
+create_daemon(
+    action=my_custom_daemon,
+    working_dir='/path/to/working/dir',
+    log_file='my_daemon.log',
+    pid_file='my_daemon.pid'
+)
+```
