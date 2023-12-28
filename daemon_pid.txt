@@ -1,4 +1,0 @@
-Daemon PID: 46675, Caller: monitor_logs
-Daemon PID: 46686, Caller: monitor_logs
-Daemon PID: 46703, Caller: hello_world
-Daemon PID: 46718, Caller: hello_world

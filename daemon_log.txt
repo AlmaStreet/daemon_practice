@@ -1,4 +1,0 @@
-File /Users/jason/repos/daemon_practice/test_file was created at Wed Dec 27 17:00:21 2023
-File /Users/jason/repos/daemon_practice/daemon_log.txt was created at Wed Dec 27 17:00:21 2023
-File /Users/jason/repos/daemon_practice/.gitignore was created at Wed Dec 27 17:09:29 2023
-File /Users/jason/repos/daemon_practice/.gitignore was created at Wed Dec 27 17:09:29 2023
