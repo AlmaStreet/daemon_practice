@@ -1,2 +1,2 @@
 [DEFAULT]
-output_dir = ~/repos/daemon_practice
+output_dir = ~/repos/daemonkit/daemon_data

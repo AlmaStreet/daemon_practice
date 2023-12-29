@@ -12,13 +12,33 @@ class Daemon:
     CONFIG_FILE = ".settings"
     config = configparser.ConfigParser()
     config.read(CONFIG_FILE)
-    DEFAULT_OUTPUT_DIR = os.path.expanduser(
-        config.get("DEFAULT", "output_dir", fallback="~/repos/daemon_practice")
+
+    # Check for a user-specified output directory in the environment or config file
+    user_defined_output_dir = os.getenv("DAEMONKIT_OUTPUT_DIR") or config.get(
+        "DEFAULT", "output_dir", fallback=None
     )
 
-    LOGS_DIR = os.path.join(DEFAULT_OUTPUT_DIR, "logs")
-    OUTPUT_DIR = os.path.join(DEFAULT_OUTPUT_DIR, "output")
-    PIDS_DIR = os.path.join(DEFAULT_OUTPUT_DIR, "pids")
+    # Determine the default output directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    repo_dir = os.path.abspath(
+        os.path.join(script_dir, os.pardir)
+    )  # Go up one level to reach the repo root
+    DEFAULT_OUTPUT_DIR = (
+        user_defined_output_dir
+        if user_defined_output_dir
+        else os.path.join(repo_dir, "daemon_data")
+    )
+
+    # Create directories if they don't exist
+    os.makedirs(DEFAULT_OUTPUT_DIR, exist_ok=True)
+    LOGS_DIR = os.path.expanduser(os.path.join(DEFAULT_OUTPUT_DIR, "logs"))
+    os.makedirs(LOGS_DIR, exist_ok=True)
+    OUTPUT_DIR = os.path.expanduser(os.path.join(DEFAULT_OUTPUT_DIR, "output"))
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    PIDS_DIR = os.path.expanduser(os.path.join(DEFAULT_OUTPUT_DIR, "pids"))
+    os.makedirs(PIDS_DIR, exist_ok=True)
+    MOCK_DATA_DIR = os.path.expanduser(os.path.join(DEFAULT_OUTPUT_DIR, "mock_data"))
+    os.makedirs(MOCK_DATA_DIR, exist_ok=True)
 
     DEFAULT_LOG_FILE = "daemon.log"
     LOG_FILE_MAX_SIZE = 5 * 1024 * 1024  # 5 MB
