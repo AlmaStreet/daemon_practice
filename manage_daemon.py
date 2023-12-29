@@ -1,13 +1,18 @@
 # manage_daemon.py
 import os
 import signal
-import sys
 from daemon_creator.daemon import Daemon
 
 
 def list_daemons():
-    daemon_files = [f for f in os.listdir(Daemon.PIDS_DIR) if f.endswith("_pid.txt")]
-    return {i + 1: f[:-8] for i, f in enumerate(daemon_files)}
+    pids_dir = Daemon.PIDS_DIR
+
+    if os.path.exists(pids_dir):
+        daemon_files = [f for f in os.listdir(pids_dir) if f.endswith("_pid.txt")]
+        return {i + 1: f[:-8] for i, f in enumerate(daemon_files)}
+    else:
+        print(f"Directory '{pids_dir}' does not exist.")
+        return {}
 
 
 def stop_daemon(daemon_name):
