@@ -14,7 +14,7 @@ def my_custom_task():
 
     try:
         with open(DATA_FILE_PATH, "r") as file:
-            data = file.readlines()
+            data = file.read().split()
 
         for input_text in data:
             processed_word = process_word(input_text.strip())

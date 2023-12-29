@@ -1,18 +1,18 @@
 # DaemonKit
 
 ## Introduction
-DaemonKit is a Python toolkit for creating and managing daemon processes. It simplifies the process of daemon creation, which involves running tasks in the background independently of user sessions, typically without a user interface. To create a daemon, simply integrate your script logic into the `user_task` function in the `daemon_template.py` template, transforming standard Python scripts into background-running daemons.
+DaemonKit is a Python toolkit for creating and managing daemon processes. It simplifies the process of daemon creation, which involves running tasks in the background independently of user sessions, typically without a user interface. With DaemonKit, you can easily transform standard Python scripts into background-running daemons by integrating your script logic into the provided template.
 
 ## Features
 - Simplifies the creation and management of daemon processes in Python.
 - Allows for customizable behavior across different daemon tasks.
-- Provides efficient logging, error handling, and PID file management.
+- Provides efficient logging, error handling, and PID (Process ID) file management.
 
 
 ## Installation
-Clone the repository and set up a virtual environment:
+To get started with DaemonKit, follow these installation steps:
 
-```bash
+```
 git clone https://github.com/AlmaStreet/daemonkit.git
 cd daemonkit
 python3 -m venv venv
@@ -25,22 +25,25 @@ python setup.py install
 Before running the examples, configure the `output_dir` in the `.settings` file:
 ```
 [DEFAULT]
-output_dir = ~/repos/daemon_practice
+output_dir = ~/repos/daemonkit
 ```
 Replace output_dir with the desired path for daemon outputs.
 
 
 ## Daemon Examples
-### helloworld.py
-Creates a daemon to save "Hello World" to `daemon_output.txt` and saves the process id to `daemon_pid.txt`
-### monitor_logs.py
-Monitors the current directory for any file creations and logs the activity to daemon_logs.txt. Test this by creating a file in the directory:
+### hello_world.py
+This example creates a daemon that prints "Hello, World!" to hello_world_output.txt and records the process ID in hello_world_pid.txt. To run the example:
 ```
-touch text_file.txt
+python3 examples/hello_world.py
+```
+### data_processer.py
+The data_processor.py example reads data from raw_data.txt, processes each word, and saves the output to processed_data.txt. To run the example:
+```
+python3 examples/data_processer.py
 ```
 
 ## Daemon Template
-Create your own daemon processes using `daemon_template.py`. Include the tasks you want to run in the `user_task()` function:
+You can create your own daemon processes using daemon_template.py. Include the tasks you want to run in the user_task() function:
 ```
 from daemon_creator.daemon import Daemon
 
@@ -66,13 +69,13 @@ python3 template/daemon_template.py
 ## Daemon Management Service
 Use the daemon management service to view currently running daemons and terminate specific or all daemons.
 
-Example with no daemons running:
+Example with No Daemons Running:
 ```
 % python3 manage_daemon.py                                  
 No daemons are currently running.
 ```
 
-Example with a running daemon:
+Example with a Running Daemon:
 ```
 % python3 manage_daemon.py                
 1) daemon_template
@@ -81,7 +84,7 @@ Stopped daemon 'daemon_template' with PID 63821.
 ```
 
 ## Slaying the daemon
-Apart from using the Daemon Management Service, you can manually terminate daemons. Retrieve the process ID (PID) from `daemon_pid.txt`.
+If needed, you can manually terminate a daemon by obtaining the Process ID (PID) from the corresponding PID file located in the pids directory.
 ### UI
 Open the Activity Monitor app and look for a Python or Python3 process with the same PID as the daemon. Terminate the process by clicking on it and then clicking the 'X'.
 ### CLI
